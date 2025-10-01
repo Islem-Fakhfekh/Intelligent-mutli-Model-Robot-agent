@@ -103,10 +103,10 @@ EduBot transforms the campus into a **smart, interactive, and student-friendly e
 
 Here’s an illustration of the EduBot system architecture:  
 👉 **SVG version** (crisper scaling):  
-![EduBot System Architecture](docs/edubot_architecture.svg)  
+![EduBot System Architecture](docs/edubot_architecture.png)  
 
 📂 **Download the files here**:  
-- [SVG version](docs/edubot_architecture.svg)  
+- [png version](docs/edubot_architecture.png)  
 
 ---
 
