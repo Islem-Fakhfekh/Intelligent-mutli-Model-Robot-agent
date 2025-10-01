@@ -1,4 +1,4 @@
-<img width="975" height="400" alt="image" src="https://github.com/user-attachments/assets/7acd5134-ec37-413f-aac9-945377869c3b" /># 🤖 Autonomous Campus Guide – EduBot
+<img width="975" height="450" alt="image" src="https://github.com/user-attachments/assets/7acd5134-ec37-413f-aac9-945377869c3b" /># 🤖 Autonomous Campus Guide – EduBot
 
 > *“Imagine stepping onto a campus where finding your way is as simple as asking a friend.”*
 
@@ -96,17 +96,6 @@ EduBot transforms the campus into a **smart, interactive, and student-friendly e
 
 - **Fixed Robot (Info Desk)** → Stationary, voice guidance only.  
 - **Mobile Escort (Future)** → Physically guides students through halls.  
-
----
-
-### 5. System Architecture  
-
-Here’s an illustration of the EduBot system architecture:  
-👉 **SVG version** (crisper scaling):  
-![EduBot System Architecture](docs/edubot_architecture.png)  
-
-📂 **Download the files here**:  
-- [png version](docs/edubot_architecture.png)  
 
 ---
 
