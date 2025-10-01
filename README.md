@@ -1,66 +1,122 @@
-# 📌 Autonomous Campus Guide
+<img width="975" height="114" alt="image" src="https://github.com/user-attachments/assets/7acd5134-ec37-413f-aac9-945377869c3b" /># 🤖 Autonomous Campus Guide – EduBot
 
-## 1. Introduction
-The **Autonomous Campus Guide** is a robotic assistant that combines **speech recognition**, **Large Language Models (LLMs)**, **navigation AI**, and **contextual data sources** (maps, FAQs, events) to support students and visitors with navigation and campus information.
+> *“Imagine stepping onto a campus where finding your way is as simple as asking a friend.”*
+
+The **Autonomous Campus Guide (EduBot)** is an **AI-powered robotic assistant** designed to enhance the university experience for students, newcomers, and visitors.  
+By combining **speech recognition, LLMs, navigation AI, and contextual knowledge bases**, EduBot becomes a helpful companion that provides:
+
+- 🎯 Seamless **indoor navigation** with step-by-step guidance  
+- 💡 Instant answers to **FAQs and campus queries**  
+- 🗣️ Conversational support with **natural dialogue**  
+- 🔗 Integration with **live data** such as events, maps, and news  
+
+EduBot transforms the campus into a **smart, interactive, and student-friendly environment**.  
 
 ---
 
-## 2. Actors & Roles
+## 📌 Use Cases  
+
+### Use Case 1: Campus Navigation (Audio-Instruction Mode)  
+
+**Scenario (IF … THEN …)**  
+
+- **If** a student asks: *“How do I get to the robotics lab?”*  
+  - **Then** the robot listens, transcribes speech to text, and detects `intent = navigation request`.  
+
+- **If** the map database is accessible,  
+  - **Then** the Navigation AI computes the **optimal route**.  
+
+- **If** the path is clear,  
+  - **Then** the robot explains:  
+    *“Walk straight until you see the library, then turn left. The robotics lab is at the end of the hallway.”*  
+
+- **If** the student says *“Repeat the last step”*,  
+  - **Then** the robot clarifies with additional landmarks.  
+
+✅ **Outcome**: The student successfully reaches the robotics lab.  
+
+---
+
+### Use Case 2: Campus FAQs & General Interaction  
+
+**Scenario (IF … THEN …)**  
+
+- **If** a student greets the robot,  
+  - **Then** it replies: *“Hello! Welcome to campus. How can I help you today?”*  
+
+- **If** the student asks: *“Where is the cafeteria?”*  
+  - **Then** the robot answers: *“The cafeteria is in Building A, next to the main hall. It’s open until 6 PM.”*  
+
+- **If** the student asks: *“What events are happening today?”*  
+  - **Then** the robot fetches events and replies: *“The robotics workshop starts at 2 PM in Building B.”*  
+
+- **If** the student says: *“I’m stressed about exams”*,  
+  - **Then** the robot provides well-being advice and directs them to the counseling center.  
+
+- **If** the robot does not know an answer,  
+  - **Then** it replies: *“I don’t know yet, but you can check at the info desk.”*  
+
+✅ **Outcome**: The student feels informed, supported, and engaged.  
+
+---
+
+## 🛠 System Documentation  
+
+### 1. Actors & Roles  
+
 - **Primary Actor**: Student, newcomer, visitor  
 - **System**: Robot assistant (speech recognition, LLM, navigation AI)  
-- **Supporting Systems**:
-  - **Context Broker (FIWARE NGSI-LD)** → indoor maps, building coordinates  
-  - **FAQ Knowledge Base** → structured campus data (cafeteria, events, etc.)  
-  - **MCP Servers** → modular AI services (LLM, NavAI, VLM)  
-  - **n8n Automation** → orchestrates workflows (update FAQs, fetch events)  
+- **Supporting Systems**:  
+  - Context Broker (FIWARE NGSI-LD) → indoor maps, building coordinates  
+  - FAQ Knowledge Base → structured campus data (cafeteria, events, etc.)  
+  - MCP Servers → modular AI services (LLM, NavAI, VLM)  
+  - n8n Automation → orchestrates workflows (FAQ updates, event fetching)  
 
 ---
 
-## 3. System Workflow (Technology Translation)
+### 2. System Workflow  
 
-### 1. Voice Input
-- **Hardware**: Robot microphone  
-- **Software**: Whisper, Vosk, Google Speech API  
-
-### 2. LLM Processing
-- **Execution**: Local (Jetson Nano) or cloud MCP server  
-- **Tasks**:  
-  - Detects intent → *navigation / FAQ / small talk*  
-  - Queries Context Broker or FAQ DB  
-
-### 3. Workflow Orchestration
-- FIWARE ROS Agent bridges **robot ↔ Context Broker**  
-- MCP Servers run modular services (**LLM, NavAI, VLM**)  
-- n8n handles external integrations (**events, news feeds**)  
-
-### 4. Response Generation
-- **Navigation** → NavAI converts path into step-by-step guidance  
-- **FAQ** → DB/n8n returns structured info  
-- **Small Talk** → LLM generates natural dialogue  
-
-### 5. Voice Output
-- **TTS Engines**: Coqui TTS, eSpeak, Amazon Polly  
-- **Output**: Robot speakers + optional LCD display  
+1. **Voice Input** → Microphone captures speech (Whisper, Vosk, Google Speech API).  
+2. **LLM Processing** → Detects intent (navigation, FAQ, or small talk).  
+3. **Workflow Orchestration** → FIWARE ROS Agent + MCP servers + n8n integration.  
+4. **Response Generation** → Navigation steps, FAQ answers, or dialogue.  
+5. **Voice Output** → TTS via Coqui TTS, eSpeak, Amazon Polly + optional LCD.  
 
 ---
 
-## 4. Role of VLM (Vision-Language Models)
-- Identify landmarks visually → *“Cafeteria is the building with red doors”*  
-- Confirm destination → *“Here’s the robotics lab entrance”*  
-- Aid localization by matching live camera view with the map  
+### 3. Role of VLM (Vision-Language Models)  
+
+- Identifies landmarks visually (*“Look for the red doors”*).  
+- Confirms destinations with real-time images.  
+- Aids localization by aligning camera input with the map.  
 
 ---
 
-## 5. Deployment Modes
-- **Fixed Robot (Info Desk)** → stationary, provides voice guidance  
-- **Mobile Escort (future)** → physically guides students through halls  
+### 4. Deployment Modes  
+
+- **Fixed Robot (Info Desk)** → Stationary, voice guidance only.  
+- **Mobile Escort (Future)** → Physically guides students through halls.  
 
 ---
 
-## 6. Value
-- **Practical** → Easy navigation and info access  
-- **Engaging** → Conversational and human-like interaction  
-- **Modular** → MCP allows independent upgrades of LLM, NavAI, VLM  
-- **Scalable** → FIWARE + n8n enable event/news integration  
+### 5. System Architecture  
+
+Here’s an illustration of the EduBot system architecture:  
+👉 **SVG version** (crisper scaling):  
+![EduBot System Architecture](docs/edubot_architecture.svg)  
+
+📂 **Download the files here**:  
+- [SVG version](docs/edubot_architecture.svg)  
 
 ---
+
+## 🎯 Value Proposition  
+
+- ✅ **Practical** → Students can navigate campus easily  
+- 🤝 **Engaging** → Human-like conversations create trust  
+- 🧩 **Modular** → Independent upgrades to AI components  
+- 📈 **Scalable** → Integrates with events, maps, and news dynamically  
+
+---
+
+⚡ **With EduBot, every campus becomes a smart, connected, and student-friendly ecosystem.**
