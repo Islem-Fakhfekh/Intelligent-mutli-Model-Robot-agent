@@ -1,4 +1,6 @@
-<img width="975" height="450" alt="image" src="https://github.com/user-attachments/assets/7acd5134-ec37-413f-aac9-945377869c3b" /># 🤖 Autonomous Campus Guide – EduBot
+<img width="1000" height="450" alt="image" src="https://github.com/user-attachments/assets/7acd5134-ec37-413f-aac9-945377869c3b" />
+
+# 🤖 Autonomous Campus Guide – EduBot
 
 > *“Imagine stepping onto a campus where finding your way is as simple as asking a friend.”*
 
