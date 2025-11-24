@@ -169,9 +169,6 @@ ros2 run r2d2_perception calibrate_sensors
 └─────────────────────────────────────────────────────┘
 ```
 
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
 ### Development Setup
 ```bash
