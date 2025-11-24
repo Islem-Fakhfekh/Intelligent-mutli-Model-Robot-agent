@@ -1,113 +1,220 @@
-<img width="1000" height="500" alt="image" src="https://github.com/user-attachments/assets/7acd5134-ec37-413f-aac9-945377869c3b" />
+# R2D2 - Intelligent Autonomous Robot 🤖
 
-# 🤖 Autonomous Campus Guide – EduBot
+An intelligent autonomous robotic system capable of making independent decisions, discovering its environment, and interacting naturally with humans through dialogue.
 
-> *“Imagine stepping onto a campus where finding your way is as simple as asking a friend.”*
+## 🌟 Overview
 
-The **Autonomous Campus Guide (EduBot)** is an **AI-powered robotic assistant** designed to enhance the university experience for students, newcomers, and visitors.  
-By combining **speech recognition, LLMs, navigation AI, and contextual knowledge bases**, EduBot becomes a helpful companion that provides:
+R2D2 is a distributed intelligent robotic system that combines real-time robotics (ROS 2), artificial intelligence (LLM), and semantic context management (FIWARE) to create truly autonomous behavior. The architecture mimics a biological nervous system where the Context Broker acts as the spinal cord, connecting the brain (AI systems) to the body (ROS actuators and sensors).
 
-- 🎯 Seamless **indoor navigation** with step-by-step guidance  
-- 💡 Instant answers to **FAQs and campus queries**  
-- 🗣️ Conversational support with **natural dialogue**  
-- 🔗 Integration with **live data** such as events, maps, and news  
+## 🏗️ Architecture
 
-EduBot transforms the campus into a **smart, interactive, and student-friendly environment**.  
+The system is built on three interconnected pillars:
 
----
+### 1. **The Body** - ROS 2 Platform
+Handles motor and sensory functions in real-time with maximum reactivity.
 
-## 📌 Use Cases  
+### 2. **The Brain** - LLM + External AI
+Provides intelligence, contextual understanding, and high-level planning.
 
-### Use Case 1: Campus Navigation (Audio-Instruction Mode)  
+### 3. **The Nervous System** - Context Broker + Digital Twin
+Ensures coordination, shared memory, and global coherence between all components.
 
-**Scenario (IF … THEN …)**  
+## 🔑 Key Features
 
-- **If** a student asks: *“How do I get to the robotics lab?”*  
-  - **Then** the robot listens, transcribes speech to text, and detects `intent = navigation request`.  
+- **Natural Voice Interaction**: Direct Speech-to-LLM pipeline for superior contextual understanding
+- **Autonomous Navigation**: SLAM mapping and Nav2 stack for intelligent pathfinding
+- **Object Detection & Recognition**: Real-time visual analysis with AI-powered identification
+- **Reactive Safety**: Ultrasonic sensors for emergency obstacle avoidance
+- **Digital Twin**: Complete semantic representation of the environment and robot state
+- **Distributed Intelligence**: Hybrid architecture with embedded real-time control and external AI processing
 
-- **If** the map database is accessible,  
-  - **Then** the Navigation AI computes the **optimal route**.  
+## 🛠️ Main Components
 
-- **If** the path is clear,  
-  - **Then** the robot explains:  
-    *“Walk straight until you see the library, then turn left. The robotics lab is at the end of the hallway.”*  
+### Hardware
+- **Single-Board Computer**: Raspberry Pi 4 (or similar ROS 2-compatible board)
+- **HC-SR04 Ultrasonic Sensors**: Reactive proximity safety
+- **USB Webcams**: Dual cameras with integrated microphones for vision and audio
+- **L298N Motor Driver**: Power interface for DC motors
 
-- **If** the student says *“Repeat the last step”*,  
-  - **Then** the robot clarifies with additional landmarks.  
+### Software Stack
 
-✅ **Outcome**: The student successfully reaches the robotics lab.  
+#### ROS 2 Packages
+- **r2d2_audio**: Voice interaction (Speech-to-LLM, LLM-to-Speech)
+- **r2d2_vision**: Image capture, preprocessing, and AI client
+- **r2d2_navigation**: SLAM and Nav2 autonomous navigation
+- **r2d2_perception**: Multi-modal sensor fusion
+- **r2d2_firos_bridge**: ROS ↔ Context Broker interface
+- **r2d2_mcp_interface**: MCP server for LLM tool integration
 
----
+#### External Services
+- **FIWARE Orion Context Broker**: Central nervous system managing all context and state
+- **FIROS Agent**: Bidirectional translator between ROS and Context Broker
+- **LLM with MCP**: Cognitive brain for natural language understanding and decision-making
+- **Vision AI Service**: TensorFlow/PyTorch for object detection and recognition
 
-### Use Case 2: Campus FAQs & General Interaction  
+## 🚀 Quick Start
 
-**Scenario (IF … THEN …)**  
+### Prerequisites
+```bash
+# ROS 2 (Humble or later)
+# Python 3.8+
+# Docker (recommended for Context Broker)
+```
 
-- **If** a student greets the robot,  
-  - **Then** it replies: *“Hello! Welcome to campus. How can I help you today?”*  
+### Installation
 
-- **If** the student asks: *“Where is the cafeteria?”*  
-  - **Then** the robot answers: *“The cafeteria is in Building A, next to the main hall. It’s open until 6 PM.”*  
+1. **Clone the repository**
+```bash
+git clone https://github.com/yourusername/r2d2-robot.git
+cd r2d2-robot
+```
 
-- **If** the student asks: *“What events are happening today?”*  
-  - **Then** the robot fetches events and replies: *“The robotics workshop starts at 2 PM in Building B.”*  
+2. **Install ROS 2 dependencies**
+```bash
+rosdep install --from-paths src --ignore-src -r -y
+```
 
-- **If** the student says: *“I’m stressed about exams”*,  
-  - **Then** the robot provides well-being advice and directs them to the counseling center.  
+3. **Build the workspace**
+```bash
+colcon build
+source install/setup.bash
+```
 
-- **If** the robot does not know an answer,  
-  - **Then** it replies: *“I don’t know yet, but you can check at the info desk.”*  
+4. **Start the Context Broker**
+```bash
+docker-compose up -d
+```
 
-✅ **Outcome**: The student feels informed, supported, and engaged.  
+5. **Launch R2D2**
+```bash
+ros2 launch r2d2_bringup r2d2_full.launch.py
+```
 
----
+## 📋 Usage Examples
 
-## 🛠 System Documentation  
+### Scenario 1: Voice-Commanded Navigation
+```
+User: "R2D2, go to the kitchen"
+→ Robot navigates autonomously to the kitchen
+→ Confirms arrival with voice feedback
+```
 
-### 1. Actors & Roles  
+### Scenario 2: Object Detection
+```
+Robot explores autonomously
+→ Detects person at 2.5m, 30° right
+→ Updates Digital Twin
+→ Adapts navigation to avoid person
+→ Can initiate interaction: "Hello, can I help you?"
+```
 
-- **Primary Actor**: Student, newcomer, visitor  
-- **System**: Robot assistant (speech recognition, LLM, navigation AI)  
-- **Supporting Systems**:  
-  - Context Broker (FIWARE NGSI-LD) → indoor maps, building coordinates  
-  - FAQ Knowledge Base → structured campus data (cafeteria, events, etc.)  
-  - MCP Servers → modular AI services (LLM, NavAI, VLM)  
-  - n8n Automation → orchestrates workflows (FAQ updates, event fetching)  
+### Scenario 3: Reactive Safety
+```
+Obstacle suddenly appears at 15cm
+→ Ultrasonic sensor triggers immediate stop
+→ System notified via Context Broker
+→ LLM decides bypass strategy
+```
 
----
+## 🔧 Configuration
 
-### 2. System Workflow  
+### Network Setup
+Configure your robot's network settings in `config/network.yaml`:
+```yaml
+robot_ip: "192.168.1.100"
+server_ip: "192.168.1.10"
+context_broker_port: 1026
+```
 
-1. **Voice Input** → Microphone captures speech (Whisper, Vosk, Google Speech API).  
-2. **LLM Processing** → Detects intent (navigation, FAQ, or small talk).  
-3. **Workflow Orchestration** → FIWARE ROS Agent + MCP servers + n8n integration.  
-4. **Response Generation** → Navigation steps, FAQ answers, or dialogue.  
-5. **Voice Output** → TTS via Coqui TTS, eSpeak, Amazon Polly + optional LCD.  
+### LLM Configuration
+Set up your LLM connection in `config/llm.yaml`:
+```yaml
+model: "claude-sonnet-4"
+mcp_server_port: 8080
+api_endpoint: "http://server_ip:8080"
+```
 
----
+### Sensor Calibration
+Calibrate sensors using:
+```bash
+ros2 run r2d2_perception calibrate_sensors
+```
 
-### 3. Role of VLM (Vision-Language Models)  
+## 🗺️ System Architecture Diagram
 
-- Identifies landmarks visually (*“Look for the red doors”*).  
-- Confirms destinations with real-time images.  
-- Aids localization by aligning camera input with the map.  
+```
+┌─────────────────────────────────────────────────────┐
+│                  External Server                     │
+│  ┌──────────────┐  ┌──────────┐  ┌──────────────┐  │
+│  │   LLM + MCP  │  │ Vision AI│  │ Digital Twin │  │
+│  └──────┬───────┘  └────┬─────┘  └──────┬───────┘  │
+│         │               │                │          │
+│    ┌────┴───────────────┴────────────────┴─────┐   │
+│    │    FIWARE Orion Context Broker (NGSI v2)  │   │
+│    └────────────────────┬───────────────────────┘   │
+│                         │                            │
+│                    ┌────┴─────┐                      │
+│                    │  FIROS   │                      │
+│                    └────┬─────┘                      │
+└─────────────────────────┼──────────────────────────┘
+                          │ Network (Wi-Fi/Ethernet)
+┌─────────────────────────┼──────────────────────────┐
+│         Robot (Raspberry Pi + ROS 2)                │
+│    ┌──────────┐  ┌──────────┐  ┌──────────────┐   │
+│    │  Audio   │  │  Vision  │  │  Navigation  │   │
+│    └──────────┘  └──────────┘  └──────────────┘   │
+│    ┌──────────┐  ┌──────────┐  ┌──────────────┐   │
+│    │Perception│  │  Motors  │  │   Sensors    │   │
+│    └──────────┘  └──────────┘  └──────────────┘   │
+└─────────────────────────────────────────────────────┘
+```
 
----
+## 🤝 Contributing
 
-### 4. Deployment Modes  
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
-- **Fixed Robot (Info Desk)** → Stationary, voice guidance only.  
-- **Mobile Escort (Future)** → Physically guides students through halls.  
+### Development Setup
+```bash
+# Create a new branch
+git checkout -b feature/your-feature-name
 
----
+# Make your changes and commit
+git commit -m "Add your feature"
 
-## 🎯 Value Proposition  
+# Push to your fork
+git push origin feature/your-feature-name
 
-- ✅ **Practical** → Students can navigate campus easily  
-- 🤝 **Engaging** → Human-like conversations create trust  
-- 🧩 **Modular** → Independent upgrades to AI components  
-- 📈 **Scalable** → Integrates with events, maps, and news dynamically  
+# Open a Pull Request
+```
 
----
+## 📚 Documentation
 
-⚡ **With EduBot, every campus becomes a smart, connected, and student-friendly ecosystem.**
+- [Full Architecture Documentation](docs/R2D2_Architecture.pdf)
+- [API Reference](docs/api-reference.md)
+- [ROS 2 Package Guide](docs/ros2-packages.md)
+- [Digital Twin Specification](docs/digital-twin.md)
+
+## 🔗 References
+
+- [ROS 2 Documentation](https://docs.ros.org/)
+- [Nav2 Documentation](https://docs.nav2.org/)
+- [FIWARE Context Broker](https://fiware-orion.readthedocs.io/)
+- [FIROS on GitHub](https://github.com/iml130/firos)
+- [MCP for Robotics](https://docs.phospho.ai/examples/mcp-for-robotics)
+
+
+## 👥 Team
+
+**Prepared by:**
+- Islem Fakhfekh
+- Saif Eddine Ben Turkia
+- Asma Mhatli
+- Mohamed Amine Abderrazek
+
+**Date:** November 23, 2025
+
+## 🙏 Acknowledgments
+
+- FIWARE Foundation for the Context Broker
+- ROS 2 Community
+- Open Robotics
