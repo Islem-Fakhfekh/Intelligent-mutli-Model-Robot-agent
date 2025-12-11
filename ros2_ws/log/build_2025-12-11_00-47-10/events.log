@@ -1,0 +1,65 @@
+[0.000000] (-) TimerEvent: {}
+[0.001612] (-) JobUnselected: {'identifier': 'ngsi_agent'}
+[0.001790] (robot_core) JobQueued: {'identifier': 'robot_core', 'dependencies': OrderedDict()}
+[0.002245] (robot_core) JobStarted: {'identifier': 'robot_core'}
+[0.110378] (-) TimerEvent: {}
+[0.218931] (-) TimerEvent: {}
+[0.328125] (-) TimerEvent: {}
+[0.436460] (-) TimerEvent: {}
+[0.544691] (-) TimerEvent: {}
+[0.651670] (-) TimerEvent: {}
+[0.760187] (-) TimerEvent: {}
+[0.867987] (-) TimerEvent: {}
+[0.976258] (-) TimerEvent: {}
+[1.083477] (-) TimerEvent: {}
+[1.190179] (-) TimerEvent: {}
+[1.297622] (-) TimerEvent: {}
+[1.406294] (-) TimerEvent: {}
+[1.513947] (-) TimerEvent: {}
+[1.621309] (-) TimerEvent: {}
+[1.728058] (-) TimerEvent: {}
+[1.763800] (robot_core) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/robot_core', 'build', '--build-base', '/home/ros/robot_project/ros2_ws/build/robot_core/build', 'install', '--record', '/home/ros/robot_project/ros2_ws/build/robot_core/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/ros/robot_project/ros2_ws/src/robot_core', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'ros', 'GIT_ASKPASS': '/home/ros/.vscode-server/bin/bf9252a2fb45be6893dd8870c0bf37e2e1766d61/extensions/git/dist/askpass.sh', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/home/ros', 'OLDPWD': '/home/ros/robot_project', 'TERM_PROGRAM_VERSION': '1.106.3', 'VSCODE_IPC_HOOK_CLI': '/tmp/vscode-ipc-e8e2a107-c7f5-45ce-a871-269a44299c26.sock', 'ROS_PYTHON_VERSION': '3', 'VSCODE_GIT_ASKPASS_MAIN': '/home/ros/.vscode-server/bin/bf9252a2fb45be6893dd8870c0bf37e2e1766d61/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/home/ros/.vscode-server/bin/bf9252a2fb45be6893dd8870c0bf37e2e1766d61/node', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'COLORTERM': 'truecolor', 'WSL_DISTRO_NAME': 'Ubuntu-22.04', 'ROS_DISTRO': 'humble', 'LOGNAME': 'ros', 'NAME': 'DESKTOP-9BF9GB8', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm-256color', 'GAZEBO_MODEL_PATH': ':/opt/ros/humble/share/turtlebot3_gazebo/models:/opt/ros/humble/share/turtlebot3_gazebo/models', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/home/ros/.vscode-server/bin/bf9252a2fb45be6893dd8870c0bf37e2e1766d61/bin/remote-cli:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Python38/Scripts/:/mnt/c/Python38/:/mnt/c/Python312/Scripts/:/mnt/c/Python312/:/mnt/c/oraclexe/app/oracle/product/11.2.0/server/bin:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/Python311/Scripts/:/mnt/c/Python311/:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/ncs/v2.2.0/zephyr/samples/sensor/74-arduino:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/arduino-cli_0.29.0_Windows_64bit:/mnt/c/Program Files (x86)/Yarn/bin/:/mnt/c/Users/MSI/Downloads/edge-impulse-cli-master/edge-impulse-cli-master:/mnt/c/Windows/System32/edge-impulse-cli-master:/mnt/c/Users/MSI/Downloads/edge-impulse-cli-1.13.16-alpha/edge-impulse-cli-1.13.16-alpha:/mnt/c/Program Files/Java/jdk-19:/mnt/c/flutter_windows_3.7.3-stable/flutter/bin:/mnt/c/ncs/Nouveau_dossier/v1.9.1/v1.9.1/toolchain/opt/bin/Scripts:/mnt/c/ProgramData/chocolatey/lib/maven/apache-maven-3.9.1/bin:/mnt/c/Program Files/CMake/bin:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/nodejs/:/mnt/c/Users/MSI/Desktop/flutter_windows_3.24.4-stable/flutter/bin:/mnt/c/Program Files/Amazon/AWSCLIV2/:/mnt/c/xampp/php:/mnt/c/composer:/mnt/c/Program Files (x86)/PuTTY/:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/Program Files (x86)/Nordic Semiconductor/nrf-command-line-tools/bin/:/mnt/c/Program F:/mnt/c/Users/MSI/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/ProgramData/Microsoft/Windows/Start Menu/Programs/Node.js:/mnt/c/msys64/mingw64:/mnt/c/msys64/mingw64/bin:/mnt/c/intelFPGA/18.1/modelsim_ase/win32aloem:/mnt/c/Users/MSI/Downloads/Graphviz-12.1.0-win64/bin:/mnt/c/Users/MSI/AppData/Roaming/npm:/mnt/c/Users/MSI/AppData/Local/GitHubDesktop/bin:/mnt/c/Users/MSI/Downloads/maven-mvnd-1.0.2-windows-amd64/maven-mvnd-1.0.2-windows-amd64/bin:/mnt/c/Users/MSI/AppData/Local/Pub/Cache/bin:/mnt/c/Users/MSI/AppData/Roaming/Composer/vendor/bin:/mnt/c/opencv/x64/vc16/bin:/mnt/c/dev/ros2-humble/bin:/mnt/c/Users/MSI/AppData/Local/Programs/Antigravity/bin:/snap/bin', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'VSCODE_GIT_IPC_HANDLE': '/tmp/vscode-git-e290824cda.sock', 'TERM_PROGRAM': 'vscode', 'AMENT_PREFIX_PATH': '/opt/ros/humble', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'PWD': '/home/ros/robot_project/ros2_ws/build/robot_core', 'TURTLEBOT3_MODEL': 'waffle', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/ros/robot_project/ros2_ws/build/robot_core/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/robot_project/ros2_ws/install/robot_core/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'HOSTTYPE': 'x86_64', 'WSLENV': 'VSCODE_WSL_EXT_LOCATION/up:VSCODE_CLI_REMOTE_ENV/w:ELECTRON_RUN_AS_NODE/w:'}, 'shell': False}
+[1.837292] (-) TimerEvent: {}
+[1.944339] (-) TimerEvent: {}
+[2.052552] (-) TimerEvent: {}
+[2.161595] (-) TimerEvent: {}
+[2.270987] (-) TimerEvent: {}
+[2.287085] (robot_core) StdoutLine: {'line': b'running egg_info\n'}
+[2.287776] (robot_core) StdoutLine: {'line': b'creating ../../build/robot_core/robot_core.egg-info\n'}
+[2.288530] (robot_core) StdoutLine: {'line': b'writing ../../build/robot_core/robot_core.egg-info/PKG-INFO\n'}
+[2.289939] (robot_core) StdoutLine: {'line': b'writing dependency_links to ../../build/robot_core/robot_core.egg-info/dependency_links.txt\n'}
+[2.290549] (robot_core) StdoutLine: {'line': b'writing entry points to ../../build/robot_core/robot_core.egg-info/entry_points.txt\n'}
+[2.291379] (robot_core) StdoutLine: {'line': b'writing requirements to ../../build/robot_core/robot_core.egg-info/requires.txt\n'}
+[2.292282] (robot_core) StdoutLine: {'line': b'writing top-level names to ../../build/robot_core/robot_core.egg-info/top_level.txt\n'}
+[2.293018] (robot_core) StdoutLine: {'line': b"writing manifest file '../../build/robot_core/robot_core.egg-info/SOURCES.txt'\n"}
+[2.297849] (robot_core) StdoutLine: {'line': b"reading manifest file '../../build/robot_core/robot_core.egg-info/SOURCES.txt'\n"}
+[2.303242] (robot_core) StdoutLine: {'line': b"writing manifest file '../../build/robot_core/robot_core.egg-info/SOURCES.txt'\n"}
+[2.304037] (robot_core) StdoutLine: {'line': b'running build\n'}
+[2.304667] (robot_core) StdoutLine: {'line': b'running build_py\n'}
+[2.305334] (robot_core) StdoutLine: {'line': b'creating /home/ros/robot_project/ros2_ws/build/robot_core/build\n'}
+[2.306609] (robot_core) StdoutLine: {'line': b'creating /home/ros/robot_project/ros2_ws/build/robot_core/build/lib\n'}
+[2.308126] (robot_core) StdoutLine: {'line': b'creating /home/ros/robot_project/ros2_ws/build/robot_core/build/lib/robot_core\n'}
+[2.310885] (robot_core) StdoutLine: {'line': b'copying robot_core/test_publisher.py -> /home/ros/robot_project/ros2_ws/build/robot_core/build/lib/robot_core\n'}
+[2.311590] (robot_core) StdoutLine: {'line': b'copying robot_core/__init__.py -> /home/ros/robot_project/ros2_ws/build/robot_core/build/lib/robot_core\n'}
+[2.313913] (robot_core) StdoutLine: {'line': b'running install\n'}
+[2.315379] (robot_core) StdoutLine: {'line': b'running install_lib\n'}
+[2.319736] (robot_core) StdoutLine: {'line': b'creating /home/ros/robot_project/ros2_ws/install/robot_core/lib/python3.10/site-packages/robot_core\n'}
+[2.321162] (robot_core) StdoutLine: {'line': b'copying /home/ros/robot_project/ros2_ws/build/robot_core/build/lib/robot_core/test_publisher.py -> /home/ros/robot_project/ros2_ws/install/robot_core/lib/python3.10/site-packages/robot_core\n'}
+[2.322242] (robot_core) StdoutLine: {'line': b'copying /home/ros/robot_project/ros2_ws/build/robot_core/build/lib/robot_core/__init__.py -> /home/ros/robot_project/ros2_ws/install/robot_core/lib/python3.10/site-packages/robot_core\n'}
+[2.324585] (robot_core) StdoutLine: {'line': b'byte-compiling /home/ros/robot_project/ros2_ws/install/robot_core/lib/python3.10/site-packages/robot_core/test_publisher.py to test_publisher.cpython-310.pyc\n'}
+[2.328630] (robot_core) StdoutLine: {'line': b'byte-compiling /home/ros/robot_project/ros2_ws/install/robot_core/lib/python3.10/site-packages/robot_core/__init__.py to __init__.cpython-310.pyc\n'}
+[2.330092] (robot_core) StdoutLine: {'line': b'running install_data\n'}
+[2.330590] (robot_core) StdoutLine: {'line': b'creating /home/ros/robot_project/ros2_ws/install/robot_core/share/ament_index\n'}
+[2.330901] (robot_core) StdoutLine: {'line': b'creating /home/ros/robot_project/ros2_ws/install/robot_core/share/ament_index/resource_index\n'}
+[2.332236] (robot_core) StdoutLine: {'line': b'creating /home/ros/robot_project/ros2_ws/install/robot_core/share/ament_index/resource_index/packages\n'}
+[2.333858] (robot_core) StdoutLine: {'line': b'copying resource/robot_core -> /home/ros/robot_project/ros2_ws/install/robot_core/share/ament_index/resource_index/packages\n'}
+[2.335865] (robot_core) StdoutLine: {'line': b'copying package.xml -> /home/ros/robot_project/ros2_ws/install/robot_core/share/robot_core\n'}
+[2.338068] (robot_core) StdoutLine: {'line': b'running install_egg_info\n'}
+[2.344738] (robot_core) StdoutLine: {'line': b'Copying ../../build/robot_core/robot_core.egg-info to /home/ros/robot_project/ros2_ws/install/robot_core/lib/python3.10/site-packages/robot_core-0.0.0-py3.10.egg-info\n'}
+[2.360924] (robot_core) StdoutLine: {'line': b'running install_scripts\n'}
+[2.379932] (-) TimerEvent: {}
+[2.402963] (robot_core) StdoutLine: {'line': b"writing list of installed files to '/home/ros/robot_project/ros2_ws/build/robot_core/install.log'\n"}
+[2.436081] (robot_core) CommandEnded: {'returncode': 0}
+[2.480132] (robot_core) JobEnded: {'identifier': 'robot_core', 'rc': 0}
+[2.485712] (-) TimerEvent: {}
+[2.486036] (-) EventReactorShutdown: {}

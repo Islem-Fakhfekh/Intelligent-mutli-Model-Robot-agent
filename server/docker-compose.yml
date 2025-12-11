@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  # MongoDB for data storage
+  mongo:
+    image: mongo:4.4
+    hostname: mongo
+    container_name: robot-mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - robot-network
+    volumes:
+      - mongo-data:/data/db
+    command: --nojournal
+
+  # Orion-LD Context Broker
+  orion:
+    image: fiware/orion-ld:1.5.1
+    hostname: orion
+    container_name: robot-orion
+    depends_on:
+      - mongo
+    networks:
+      - robot-network
+    ports:
+      - "1026:1026"
+    command: -dbhost mongo -logLevel DEBUG
+    healthcheck:
+      test: curl --fail -s http://orion:1026/version || exit 1
+      interval: 10s
+
+networks:
+  robot-network:
+    driver: bridge
+
+volumes:
+  mongo-data:

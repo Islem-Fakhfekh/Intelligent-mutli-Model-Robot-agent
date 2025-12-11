@@ -1,0 +1,35 @@
+running egg_info
+creating ../../build/ngsi_agent/ngsi_agent.egg-info
+writing ../../build/ngsi_agent/ngsi_agent.egg-info/PKG-INFO
+writing dependency_links to ../../build/ngsi_agent/ngsi_agent.egg-info/dependency_links.txt
+writing entry points to ../../build/ngsi_agent/ngsi_agent.egg-info/entry_points.txt
+writing requirements to ../../build/ngsi_agent/ngsi_agent.egg-info/requires.txt
+writing top-level names to ../../build/ngsi_agent/ngsi_agent.egg-info/top_level.txt
+writing manifest file '../../build/ngsi_agent/ngsi_agent.egg-info/SOURCES.txt'
+reading manifest file '../../build/ngsi_agent/ngsi_agent.egg-info/SOURCES.txt'
+writing manifest file '../../build/ngsi_agent/ngsi_agent.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/ros/robot_project/ros2_ws/build/ngsi_agent/build
+creating /home/ros/robot_project/ros2_ws/build/ngsi_agent/build/lib
+creating /home/ros/robot_project/ros2_ws/build/ngsi_agent/build/lib/ngsi_agent
+copying ngsi_agent/agent.py -> /home/ros/robot_project/ros2_ws/build/ngsi_agent/build/lib/ngsi_agent
+copying ngsi_agent/__init__.py -> /home/ros/robot_project/ros2_ws/build/ngsi_agent/build/lib/ngsi_agent
+running install
+running install_lib
+creating /home/ros/robot_project/ros2_ws/install/ngsi_agent/lib/python3.10/site-packages/ngsi_agent
+copying /home/ros/robot_project/ros2_ws/build/ngsi_agent/build/lib/ngsi_agent/agent.py -> /home/ros/robot_project/ros2_ws/install/ngsi_agent/lib/python3.10/site-packages/ngsi_agent
+copying /home/ros/robot_project/ros2_ws/build/ngsi_agent/build/lib/ngsi_agent/__init__.py -> /home/ros/robot_project/ros2_ws/install/ngsi_agent/lib/python3.10/site-packages/ngsi_agent
+byte-compiling /home/ros/robot_project/ros2_ws/install/ngsi_agent/lib/python3.10/site-packages/ngsi_agent/agent.py to agent.cpython-310.pyc
+byte-compiling /home/ros/robot_project/ros2_ws/install/ngsi_agent/lib/python3.10/site-packages/ngsi_agent/__init__.py to __init__.cpython-310.pyc
+running install_data
+creating /home/ros/robot_project/ros2_ws/install/ngsi_agent/share/ament_index
+creating /home/ros/robot_project/ros2_ws/install/ngsi_agent/share/ament_index/resource_index
+creating /home/ros/robot_project/ros2_ws/install/ngsi_agent/share/ament_index/resource_index/packages
+copying resource/ngsi_agent -> /home/ros/robot_project/ros2_ws/install/ngsi_agent/share/ament_index/resource_index/packages
+copying package.xml -> /home/ros/robot_project/ros2_ws/install/ngsi_agent/share/ngsi_agent
+running install_egg_info
+Copying ../../build/ngsi_agent/ngsi_agent.egg-info to /home/ros/robot_project/ros2_ws/install/ngsi_agent/lib/python3.10/site-packages/ngsi_agent-0.0.1-py3.10.egg-info
+running install_scripts
+Installing agent script to /home/ros/robot_project/ros2_ws/install/ngsi_agent/lib/ngsi_agent
+writing list of installed files to '/home/ros/robot_project/ros2_ws/build/ngsi_agent/install.log'
