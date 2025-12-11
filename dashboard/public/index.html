@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Robot Digital Twin Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        .status-active { background: #10b981; }
+        .status-idle { background: #f59e0b; }
+        .status-error { background: #ef4444; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h2 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon {
+            font-size: 1.8em;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .metric:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            font-size: 1.1em;
+            opacity: 0.8;
+        }
+
+        .metric-value {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .battery-bar {
+            width: 100%;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .battery-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #34d399);
+            border-radius: 15px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .battery-low { background: linear-gradient(90deg, #ef4444, #f87171); }
+
+        #positionCanvas {
+            width: 100%;
+            height: 400px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        #obstacleMap {
+            width: 100%;
+            height: 300px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .obstacle-dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ef4444;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px #ef4444;
+        }
+
+        .robot-marker {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #10b981;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px #10b981;
+            z-index: 10;
+        }
+
+        .speech-bubble {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 10px;
+            font-style: italic;
+            min-height: 60px;
+            margin-top: 10px;
+            border-left: 4px solid #10b981;
+        }
+
+        .connection-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .connected {
+            background: #10b981;
+        }
+
+        .disconnected {
+            background: #ef4444;
+        }
+
+        .connection-dot {
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .large-card {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="connection-status disconnected" id="connectionStatus">
+        <div class="connection-dot"></div>
+        <span>Connecting...</span>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>🤖 Robot Digital Twin Dashboard</h1>
+            <div class="status-badge status-idle" id="statusBadge">INITIALIZING</div>
+        </header>
+
+        <div class="grid">
+            <!-- Battery Status -->
+            <div class="card">
+                <h2><span class="icon">🔋</span> Battery Status</h2>
+                <div class="metric">
+                    <span class="metric-label">Current Level</span>
+                    <span class="metric-value" id="batteryValue">---%</span>
+                </div>
+                <div class="battery-bar">
+                    <div class="battery-fill" id="batteryFill" style="width: 0%;">
+                        <span id="batteryPercent">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Position -->
+            <div class="card">
+                <h2><span class="icon">📍</span> Position</h2>
+                <div class="metric">
+                    <span class="metric-label">X</span>
+                    <span class="metric-value" id="posX">0.00</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Y</span>
+                    <span class="metric-value" id="posY">0.00</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">θ (Theta)</span>
+                    <span class="metric-value" id="posTheta">0.00°</span>
+                </div>
+            </div>
+
+            <!-- Velocity -->
+            <div class="card">
+                <h2><span class="icon">⚡</span> Velocity</h2>
+                <div class="metric">
+                    <span class="metric-label">Linear</span>
+                    <span class="metric-value" id="velLinear">0.00 m/s</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Angular</span>
+                    <span class="metric-value" id="velAngular">0.00 rad/s</span>
+                </div>
+            </div>
+
+            <!-- Current Task -->
+            <div class="card">
+                <h2><span class="icon">📋</span> Current Activity</h2>
+                <div class="metric">
+                    <span class="metric-label">Task</span>
+                    <span class="metric-value" id="currentTask">--</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Obstacles Detected</span>
+                    <span class="metric-value" id="obstacleCount">0</span>
+                </div>
+            </div>
+
+            <!-- Last Speech -->
+            <div class="card large-card">
+                <h2><span class="icon">💬</span> Last Communication</h2>
+                <div class="speech-bubble" id="lastSpeech">
+                    Waiting for robot to speak...
+                </div>
+            </div>
+
+            <!-- 3D Position Visualization -->
+            <div class="card large-card">
+                <h2><span class="icon">🗺️</span> Robot Position Map</h2>
+                <canvas id="positionCanvas"></canvas>
+            </div>
+
+            <!-- Obstacle Map -->
+            <div class="card large-card">
+                <h2><span class="icon">🎯</span> Obstacle Detection (LiDAR)</h2>
+                <div id="obstacleMap">
+                    <div class="robot-marker" id="robotMarker"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // WebSocket connection
+        let ws = null;
+        let reconnectInterval = null;
+
+        function connectWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            ws = new WebSocket(`${protocol}//${window.location.host}`);
+
+            ws.onopen = () => {
+                console.log('✓ WebSocket connected');
+                updateConnectionStatus(true);
+                if (reconnectInterval) {
+                    clearInterval(reconnectInterval);
+                    reconnectInterval = null;
+                }
+            };
+
+            ws.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+                if (message.type === 'robot_update') {
+                    updateDashboard(message.data);
+                }
+            };
+
+            ws.onerror = (error) => {
+                console.error('WebSocket error:', error);
+                updateConnectionStatus(false);
+            };
+
+            ws.onclose = () => {
+                console.log('✗ WebSocket disconnected');
+                updateConnectionStatus(false);
+                
+                // Reconnect after 3 seconds
+                if (!reconnectInterval) {
+                    reconnectInterval = setInterval(() => {
+                        console.log('Attempting to reconnect...');
+                        connectWebSocket();
+                    }, 3000);
+                }
+            };
+        }
+
+        function updateConnectionStatus(connected) {
+            const statusEl = document.getElementById('connectionStatus');
+            if (connected) {
+                statusEl.className = 'connection-status connected';
+                statusEl.querySelector('span').textContent = 'Connected';
+            } else {
+                statusEl.className = 'connection-status disconnected';
+                statusEl.querySelector('span').textContent = 'Disconnected';
+            }
+        }
+
+        // Position chart using Chart.js
+        const ctx = document.getElementById('positionCanvas').getContext('2d');
+        const positionHistory = { x: [], y: [] };
+        const maxPoints = 50;
+
+        const positionChart = new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'Robot Path',
+                    data: [],
+                    backgroundColor: 'rgba(16, 185, 129, 0.5)',
+                    borderColor: 'rgba(16, 185, 129, 1)',
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    showLine: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: 'white' }
+                    }
+                },
+                scales: {
+                    x: {
+                        type: 'linear',
+                        title: { display: true, text: 'X (meters)', color: 'white' },
+                        ticks: { color: 'white' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    },
+                    y: {
+                        type: 'linear',
+                        title: { display: true, text: 'Y (meters)', color: 'white' },
+                        ticks: { color: 'white' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    }
+                }
+            }
+        });
+
+        function updateDashboard(data) {
+            // Update status
+            const statusBadge = document.getElementById('statusBadge');
+            statusBadge.textContent = data.status.toUpperCase();
+            statusBadge.className = 'status-badge';
+            
+            if (data.status === 'active' || data.status === 'moving') {
+                statusBadge.classList.add('status-active');
+            } else if (data.status === 'error') {
+                statusBadge.classList.add('status-error');
+            } else {
+                statusBadge.classList.add('status-idle');
+            }
+
+            // Update battery
+            const batteryValue = Math.round(data.battery);
+            document.getElementById('batteryValue').textContent = `${batteryValue}%`;
+            document.getElementById('batteryPercent').textContent = `${batteryValue}%`;
+            
+            const batteryFill = document.getElementById('batteryFill');
+            batteryFill.style.width = `${batteryValue}%`;
+            batteryFill.className = batteryValue < 20 ? 'battery-fill battery-low' : 'battery-fill';
+
+            // Update position
+            document.getElementById('posX').textContent = data.position.x.toFixed(2);
+            document.getElementById('posY').textContent = data.position.y.toFixed(2);
+            document.getElementById('posTheta').textContent = (data.position.theta * 180 / Math.PI).toFixed(2) + '°';
+
+            // Update velocity
+            document.getElementById('velLinear').textContent = data.velocity.linear.toFixed(2) + ' m/s';
+            document.getElementById('velAngular').textContent = data.velocity.angular.toFixed(2) + ' rad/s';
+
+            // Update task
+            document.getElementById('currentTask').textContent = data.currentTask;
+            document.getElementById('obstacleCount').textContent = data.obstacles.length;
+
+            // Update speech
+            if (data.lastSpeech) {
+                document.getElementById('lastSpeech').textContent = `"${data.lastSpeech}"`;
+            }
+
+            // Update position chart
+            positionHistory.x.push(data.position.x);
+            positionHistory.y.push(data.position.y);
+            
+            if (positionHistory.x.length > maxPoints) {
+                positionHistory.x.shift();
+                positionHistory.y.shift();
+            }
+            
+            const chartData = positionHistory.x.map((x, i) => ({ x, y: positionHistory.y[i] }));
+            positionChart.data.datasets[0].data = chartData;
+            positionChart.update('none');
+
+            // Update obstacle map
+            updateObstacleMap(data.obstacles);
+        }
+
+        function updateObstacleMap(obstacles) {
+            const map = document.getElementById('obstacleMap');
+            const existingObstacles = map.querySelectorAll('.obstacle-dot');
+            existingObstacles.forEach(dot => dot.remove());
+
+            const mapWidth = map.clientWidth;
+            const mapHeight = map.clientHeight;
+            const centerX = mapWidth / 2;
+            const centerY = mapHeight / 2;
+            const scale = 50; // pixels per meter
+
+            obstacles.forEach(obs => {
+                const x = centerX + Math.cos(obs.angle) * obs.distance * scale;
+                const y = centerY - Math.sin(obs.angle) * obs.distance * scale;
+                
+                if (x >= 0 && x <= mapWidth && y >= 0 && y <= mapHeight) {
+                    const dot = document.createElement('div');
+                    dot.className = 'obstacle-dot';
+                    dot.style.left = x + 'px';
+                    dot.style.top = y + 'px';
+                    map.appendChild(dot);
+                }
+            });
+
+            // Center robot marker
+            const robotMarker = document.getElementById('robotMarker');
+            robotMarker.style.left = centerX + 'px';
+            robotMarker.style.top = centerY + 'px';
+        }
+
+        // Initialize
+        connectWebSocket();
+    </script>
+</body>
+</html>

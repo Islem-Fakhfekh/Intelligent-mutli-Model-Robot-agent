@@ -1,0 +1,3 @@
+[console_scripts]
+agent = ngsi_agent.agent:main
+

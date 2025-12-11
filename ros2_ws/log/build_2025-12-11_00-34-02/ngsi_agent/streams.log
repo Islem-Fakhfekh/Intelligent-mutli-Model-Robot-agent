@@ -1,0 +1,37 @@
+[1.523s] Invoking command in '/home/ros/robot_project/ros2_ws/src/ngsi_agent': PYTHONPATH=/home/ros/robot_project/ros2_ws/build/ngsi_agent/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/robot_project/ros2_ws/install/ngsi_agent/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/ngsi_agent build --build-base /home/ros/robot_project/ros2_ws/build/ngsi_agent/build install --record /home/ros/robot_project/ros2_ws/build/ngsi_agent/install.log --single-version-externally-managed install_data
+[2.050s] running egg_info
+[2.051s] creating ../../build/ngsi_agent/ngsi_agent.egg-info
+[2.051s] writing ../../build/ngsi_agent/ngsi_agent.egg-info/PKG-INFO
+[2.053s] writing dependency_links to ../../build/ngsi_agent/ngsi_agent.egg-info/dependency_links.txt
+[2.054s] writing entry points to ../../build/ngsi_agent/ngsi_agent.egg-info/entry_points.txt
+[2.054s] writing requirements to ../../build/ngsi_agent/ngsi_agent.egg-info/requires.txt
+[2.055s] writing top-level names to ../../build/ngsi_agent/ngsi_agent.egg-info/top_level.txt
+[2.056s] writing manifest file '../../build/ngsi_agent/ngsi_agent.egg-info/SOURCES.txt'
+[2.061s] reading manifest file '../../build/ngsi_agent/ngsi_agent.egg-info/SOURCES.txt'
+[2.062s] writing manifest file '../../build/ngsi_agent/ngsi_agent.egg-info/SOURCES.txt'
+[2.063s] running build
+[2.063s] running build_py
+[2.063s] creating /home/ros/robot_project/ros2_ws/build/ngsi_agent/build
+[2.063s] creating /home/ros/robot_project/ros2_ws/build/ngsi_agent/build/lib
+[2.064s] creating /home/ros/robot_project/ros2_ws/build/ngsi_agent/build/lib/ngsi_agent
+[2.064s] copying ngsi_agent/agent.py -> /home/ros/robot_project/ros2_ws/build/ngsi_agent/build/lib/ngsi_agent
+[2.066s] copying ngsi_agent/__init__.py -> /home/ros/robot_project/ros2_ws/build/ngsi_agent/build/lib/ngsi_agent
+[2.067s] running install
+[2.068s] running install_lib
+[2.071s] creating /home/ros/robot_project/ros2_ws/install/ngsi_agent/lib/python3.10/site-packages/ngsi_agent
+[2.071s] copying /home/ros/robot_project/ros2_ws/build/ngsi_agent/build/lib/ngsi_agent/agent.py -> /home/ros/robot_project/ros2_ws/install/ngsi_agent/lib/python3.10/site-packages/ngsi_agent
+[2.087s] copying /home/ros/robot_project/ros2_ws/build/ngsi_agent/build/lib/ngsi_agent/__init__.py -> /home/ros/robot_project/ros2_ws/install/ngsi_agent/lib/python3.10/site-packages/ngsi_agent
+[2.088s] byte-compiling /home/ros/robot_project/ros2_ws/install/ngsi_agent/lib/python3.10/site-packages/ngsi_agent/agent.py to agent.cpython-310.pyc
+[2.091s] byte-compiling /home/ros/robot_project/ros2_ws/install/ngsi_agent/lib/python3.10/site-packages/ngsi_agent/__init__.py to __init__.cpython-310.pyc
+[2.093s] running install_data
+[2.093s] creating /home/ros/robot_project/ros2_ws/install/ngsi_agent/share/ament_index
+[2.093s] creating /home/ros/robot_project/ros2_ws/install/ngsi_agent/share/ament_index/resource_index
+[2.093s] creating /home/ros/robot_project/ros2_ws/install/ngsi_agent/share/ament_index/resource_index/packages
+[2.094s] copying resource/ngsi_agent -> /home/ros/robot_project/ros2_ws/install/ngsi_agent/share/ament_index/resource_index/packages
+[2.095s] copying package.xml -> /home/ros/robot_project/ros2_ws/install/ngsi_agent/share/ngsi_agent
+[2.096s] running install_egg_info
+[2.099s] Copying ../../build/ngsi_agent/ngsi_agent.egg-info to /home/ros/robot_project/ros2_ws/install/ngsi_agent/lib/python3.10/site-packages/ngsi_agent-0.0.1-py3.10.egg-info
+[2.106s] running install_scripts
+[2.139s] Installing agent script to /home/ros/robot_project/ros2_ws/install/ngsi_agent/lib/ngsi_agent
+[2.140s] writing list of installed files to '/home/ros/robot_project/ros2_ws/build/ngsi_agent/install.log'
+[2.164s] Invoked command in '/home/ros/robot_project/ros2_ws/src/ngsi_agent' returned '0': PYTHONPATH=/home/ros/robot_project/ros2_ws/build/ngsi_agent/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ros/robot_project/ros2_ws/install/ngsi_agent/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/ngsi_agent build --build-base /home/ros/robot_project/ros2_ws/build/ngsi_agent/build install --record /home/ros/robot_project/ros2_ws/build/ngsi_agent/install.log --single-version-externally-managed install_data
