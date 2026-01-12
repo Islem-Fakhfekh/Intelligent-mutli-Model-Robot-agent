@@ -1,6 +1,5 @@
 # R2D2 Vision System : Perception Stéréoscopique & Cognitive (SPI/ROS 2/VLM)
 
-![Terminal de test initial]
 
 Ce dépôt documente l'intégralité du développement du sous-système de **perception visuelle stéréoscopique** du robot mobile autonome **R2D2**, réalisé dans le cadre du Projet Tuteuré à SUP'COM. 
 
