@@ -1,5 +1,5 @@
 # R2D2 Vision System : Perception Stéréoscopique & Cognitive (SPI/ROS 2/VLM)
-![Test initial](cam.png)
+<img src="cam.png" height="500" width="800">
 
 
 Ce dépôt documente l'intégralité du développement du sous-système de **perception visuelle stéréoscopique** du robot mobile autonome **R2D2**, réalisé dans le cadre du Projet Tuteuré à SUP'COM. 
@@ -650,7 +650,7 @@ python3 stereo_master.py
 
 ### 11.2 Validation Terrain
 
-![Résultat final du système](montage.jpg)
+![Résultat final du système](res.png)
 
 **Tests effectués :**
 - ✅ Détection de personnes à 2-4 mètres
@@ -664,20 +664,317 @@ python3 stereo_master.py
 
 ---
 
-## 👥 Équipe et Crédits
+##  Compréhension Sémantique : VLM (Serveur GPU)
 
-**Projet réalisé dans le cadre du module Projet Tuteuré SUP'COM D2R2.**
+Pour les cas ambigus (ex: différencier un sac plastique d'un rocher gris), nous interrogeons un modèle VLM via API.
 
-### Groupe 2 : Vision & Intelligence Cognitive
-- **Islem Fakhfekh** (Développement Hardware SPI, Firmware ESP32)
-- **Mohamed Amine Abderrazek** (Pipeline IA, Intégration ROS 2)
+**Implémentation :**
 
-### Collaboration avec
-- **Groupe 1** : Saif Eddine Ben Turkia & Asma Mhatli (Navigation & Contrôle)
+```python
+import anthropic
 
-### Encadrement
-- **M. Ali BEN BRAHIM** (Encadrant technique)
-- **M. Khaled GRATI** (Encadrant pédagogique)
+client = anthropic.Anthropic(api_key="YOUR_KEY")
+
+# Encoder l'image en base64
+import base64
+with open("photo_CAM1.jpg", "rb") as f:
+    image_data = base64.b64encode(f.read()).decode("utf-8")
+
+# Prompt structuré
+message = client.messages.create(
+    model="claude-3-5-sonnet-20241022",
+    max_tokens=1024,
+    messages=[{
+        "role": "user",
+        "content": [
+            {
+                "type": "image",
+                "source": {
+                    "type": "base64",
+                    "media_type": "image/jpeg",
+                    "data": image_data
+                }
+            },
+            {
+                "type": "text",
+                "text": "Décris l'obstacle devant ce robot. Est-il solide et dangereux (mur, chaise) ou traversable (ombre, tapis)?"
+            }
+        ]
+    }]
+)
+
+# Exemple de réponse JSON
+# {"type": "chair", "risk": "high", "action": "avoid"}
+
+```
+
+---
+
+# Installation Complète : Embarqué (Raspberry Pi & ESP32)
+
+### Préparation Raspberry Pi
+
+```bash
+# Mise à jour système
+sudo apt update && sudo apt upgrade -y
+
+# Installation dépendances système
+sudo apt install -y python3-opencv python3-pip git
+
+# Installation bibliothèques Python
+pip3 install spidev RPi.GPIO
+
+# CORRECTIF CRITIQUE pour ROS 2 et compatibilité
+pip3 install "numpy<2" --force-reinstall
+pip3 install ultralytics
+
+# Activation du SPI hardware
+sudo raspi-config
+# -> 3 Interface Options -> I4 SPI -> Yes -> Reboot
+
+```
+
+### Flashage ESP32-CAM
+
+1. Installer **Arduino IDE 2.0+**.
+2. Ajouter le gestionnaire de cartes ESP32 :
+* `File` → `Preferences` → `Additional Boards Manager URLs`
+* Ajouter : `https://dl.espressif.com/dl/package_esp32_index.json`
+
+
+3. `Tools` → `Board` → `ESP32 Arduino` → **AI Thinker ESP32-CAM**.
+4. Ouvrir `/firmware/esp32_spi_cam_slave.ino`.
+5. **Téléverser via adaptateur FTDI (3.3V) :**
+* Connecter GPIO 0 à GND pendant le téléversement.
+* Déconnecter GPIO 0 après upload.
+* Appuyer sur le bouton RESET.
+
+
+
+###  Vérification du Câblage
+
+**Checklist avant mise sous tension :**
+
+* [ ] GND commun Raspberry Pi ↔ ESP32-CAM
+* [ ] Pas de carte SD dans l'ESP32-CAM
+* [ ] Alimentation 5V sur VCC (pas 3.3V !)
+* [ ] Câbles < 20cm
+* [ ] MISO/MOSI non croisés (différent de UART !)
+
+###  Test de Communication
+
+```bash
+cd ~/r2d2_vision
+python3 stereo_master.py
+
+```
+
+**Résultat attendu :**
+
+```text
+[CAM1] Taille: 18432 bytes
+[CAM1] Sauvegardée: photo_CAM1_1704672345.jpg
+[CAM2] Taille: 19102 bytes
+[CAM2] Sauvegardée: photo_CAM2_1704672346.jpg
+
+```
+
+---
+
+# Installation Serveur GPU & Interface Web
+
+Cette section permet de déporter l'analyse lourde (VLM, YOLO Medium) sur un PC/Serveur GPU et d'accéder au système via une interface web depuis n'importe quel ordinateur Windows/Linux.
+
+###  Pré-requis Serveur
+
+* **OS :** Linux (Ubuntu 20.04+) ou Windows 10/11
+* **GPU :** NVIDIA avec drivers CUDA installés
+* **Connexion :** SSH activé (pour serveur distant)
+* **Python :** 3.10 ou 3.11
+
+###  Connexion au Serveur GPU (SSH)
+
+Si vous utilisez un serveur distant (par exemple via Remote.it) :
+
+```bash
+# Depuis Windows PowerShell ou Linux Terminal
+ssh username@votre-serveur.com -p PORT
+
+# Exemple avec Remote.it:
+ssh saif@proxy50.rt3.io -p 39669
+
+```
+
+*Note : L'adresse et le port changent à chaque connexion sur Remote.it. Vérifiez dans l'interface web.*
+
+### Installation des Dépendances GPU
+
+Une fois connecté au serveur :
+
+```bash
+# Créer un environnement virtuel
+conda create -n vlm_env python=3.10
+conda activate vlm_env
+
+# Installer PyTorch avec support CUDA
+# Vérifier la version CUDA: nvidia-smi
+# Adapter l'URL selon votre version CUDA sur pytorch.org
+pip install torch torchvision torchaudio --index-url [https://download.pytorch.org/whl/cu118](https://download.pytorch.org/whl/cu118)
+
+# Installer les librairies IA et Web
+pip install gradio ultralytics opencv-python-headless matplotlib anthropic
+
+# CORRECTIF CRITIQUE NumPy
+# L'installation de ultralytics/gradio peut installer NumPy 2.x
+# qui casse Matplotlib et PyTorch. Solution définitive:
+pip uninstall -y numpy
+pip install "numpy==1.26.4"
+
+```
+
+**Vérification GPU :**
+
+```bash
+python3 -c "import torch; print(f'GPU Disponible: {torch.cuda.is_available()}'); print(f'Nom: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else \"CPU\"}')"
+
+```
+
+*Résultat attendu : GPU Disponible: True + nom de la carte (ex: Tesla T4, RTX 3060).*
+
+###  Code de l'Application Web (`web_app.py`)
+
+Créer un fichier `web_app.py` sur le serveur :
+
+```python
+import gradio as gr
+import torch
+import cv2
+import numpy as np
+import matplotlib
+matplotlib.use('Agg')  # Essentiel pour serveur sans écran
+import matplotlib.pyplot as plt
+import io
+from PIL import Image
+
+print("🤖 Initialisation du Modèle GPU...")
+# --- CONFIGURATION MODÈLE (Chargé une seule fois) ---
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+try:
+    model = torch.hub.load('ultralytics/yolov5', 'yolov5m', pretrained=True)
+    model.to(device)
+    model.conf = 0.35
+    print(f"✅ Modèle chargé sur {device.upper()}")
+except Exception as e:
+    print(f"❌ Erreur chargement modèle: {e}")
+    exit()
+
+def pipeline_stereo(image_gauche, image_droite):
+    """Fonction principale appelée par l'interface Web"""
+    if image_gauche is None or image_droite is None:
+        return None, "❌ Veuillez charger les deux images."
+
+    # 1. Conversion format Gradio (PIL) -> OpenCV (Numpy)
+    imgL = cv2.cvtColor(np.array(image_gauche), cv2.COLOR_RGB2BGR)
+    imgR = cv2.cvtColor(np.array(image_droite), cv2.COLOR_RGB2BGR)
+
+    # 2. Resize (Mise à l'échelle pour matcher la gauche)
+    h, w = imgL.shape[:2]
+    imgR = cv2.resize(imgR, (w, h))
+
+    # 3. Inférence YOLO (Détection)
+    resL = model(cv2.cvtColor(imgL, cv2.COLOR_BGR2RGB))
+    resR = model(cv2.cvtColor(imgR, cv2.COLOR_BGR2RGB))
+    
+    # Récupération des images annotées
+    imgL_box = resL.render()[0]
+    imgR_box = resR.render()[0]
+
+    # 4. Calcul Stéréo (Matching)
+    # Conversion Gris
+    grayL = cv2.cvtColor(imgL, cv2.COLOR_BGR2GRAY)
+    grayR = cv2.cvtColor(imgR, cv2.COLOR_BGR2GRAY)
+    
+    # ORB Matching
+    orb = cv2.ORB_create(nfeatures=2000)
+    kp1, des1 = orb.detectAndCompute(grayL, None)
+    kp2, des2 = orb.detectAndCompute(grayR, None)
+    
+    bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+    matches = bf.match(des1, des2)
+    matches = sorted(matches, key=lambda x: x.distance)[:50] # Top 50
+
+    # Calcul métriques
+    disparites = [abs(kp1[m.queryIdx].pt[0] - kp2[m.trainIdx].pt[0]) for m in matches]
+    disp_moy = np.mean(disparites) if disparites else 0
+    
+    # Estimation Baseline (Z=2.5m fixée)
+    baseline_cm = ((2.5 * disp_moy) / (0.9 * w)) * 100 if w > 0 else 0
+    
+    # 5. Création du Rapport Visuel
+    fig = plt.figure(figsize=(16, 10))
+    
+    # Vue 1 & 2: Détections
+    ax1 = plt.subplot(2, 2, 1); ax1.imshow(imgL_box); ax1.set_title(f"Gauche: {len(resL.xyxy[0])} objets")
+    ax1.axis('off')
+    ax2 = plt.subplot(2, 2, 2); ax2.imshow(imgR_box); ax2.set_title(f"Droite: {len(resR.xyxy[0])} objets")
+    ax2.axis('off')
+    
+    # Vue 3: Carte de profondeur (Simulée pour visualisation)
+    stereo = cv2.StereoSGBM_create(minDisparity=0, numDisparities=16*5, blockSize=11)
+    disp_map = stereo.compute(grayL, grayR)
+    ax3 = plt.subplot(2, 2, 3); ax3.imshow(disp_map, cmap='magma'); ax3.set_title("Carte de Disparité")
+    ax3.axis('off')
+
+    # Vue 4: Infos Textuelles
+    ax4 = plt.subplot(2, 2, 4); ax4.axis('off')
+    texte = f"""
+    RAPPORT D'ANALYSE VLM
+    ---------------------
+    Périphérique : {device.upper()}
+    Objets détectés (G/D) : {len(resL.xyxy[0])} / {len(resR.xyxy[0])}
+    
+    MÉTRIQUES STÉRÉO :
+    ------------------
+    • Points matchés : {len(matches)}
+    • Disparité moy. : {disp_moy:.1f} px
+    • BASELINE ESTIMÉE : {baseline_cm:.1f} cm
+    """
+    ax4.text(0.05, 0.95, texte, fontsize=14, verticalalignment='top', family='monospace',
+             bbox=dict(facecolor='#ddffdd', alpha=0.5))
+
+    # Sauvegarde en image pour retour
+    plt.tight_layout()
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png', dpi=100)
+    plt.close(fig)
+    buf.seek(0)
+    result_img = Image.open(buf)
+    
+    return result_img, f"Analyse terminée. Baseline : {baseline_cm:.1f} cm"
+
+# --- INTERFACE GRADIO ---
+with gr.Blocks(title="Robot Vision VLM") as demo:
+    gr.Markdown("# 🤖 Interface de Vision Stéréoscopique (Serveur GPU)")
+    gr.Markdown("Uploadez vos images directement depuis votre PC.")
+    
+    with gr.Row():
+        img_in_L = gr.Image(label="Caméra Gauche", type="pil")
+        img_in_R = gr.Image(label="Caméra Droite", type="pil")
+    
+    btn = gr.Button("Lancer l'Analyse GPU 🚀", variant="primary")
+    
+    with gr.Row():
+        out_plot = gr.Image(label="Rapport Complet")
+        out_txt = gr.Textbox(label="Statut Rapide")
+
+    btn.click(fn=pipeline_stereo, inputs=[img_in_L, img_in_R], outputs=[out_plot, out_txt])
+
+# LANCEMENT AVEC LIEN PUBLIC
+print("🚀 Lancement du serveur Web...")
+demo.launch(share=True) 
+
+```
+
 
 ### Ressources Externes
 - [Ultralytics YOLOv8](https://github.com/ultralytics/ultralytics)
