@@ -658,9 +658,7 @@ python3 stereo_master.py
 - ✅ Fonctionnement continu > 2 heures
 - ✅ Résistance aux vibrations du châssis
 
-### 11.3 Captures d'Écran GitHub
 
-![Dépôt GitHub du projet](8.png)
 
 ---
 
