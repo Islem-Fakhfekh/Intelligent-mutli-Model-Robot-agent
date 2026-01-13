@@ -634,6 +634,7 @@ python3 stereo_master.py
 ```
 
 ---
+![Résultat final du système](Rapport_VLM_Stereo.png)
 
 ## 11. Résultats et Validation
 
